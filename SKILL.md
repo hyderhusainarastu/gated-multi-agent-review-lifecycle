@@ -1,6 +1,6 @@
 ---
 name: gated-multi-agent-review-lifecycle
-description: Defines a reusable gate lifecycle for multi-agent or multi-step work — structured PASS / PASS WITH CONDITIONS / FAIL verdicts with blocking flags and resolution tests, failure routing with two-strikes escalation and adjudication, a no-self-approval rule, an evidence ledger for traceability, and a recursive research-draft-review cycle for iterative work. Use when orchestrating a workflow — a research program, a content or manuscript pipeline, a software release process, a planning-then-execution program, or any multi-agent system — where one agent's output must be independently verified before downstream work is allowed to depend on it, and where "looks done" must not be allowed to substitute for "verified done."
+description: "Gate lifecycle for multi-agent work: PASS / PASS WITH CONDITIONS / FAIL verdicts with blocking flags, two-strikes failure routing, no self-approval, an evidence ledger and a review loop. Use when one agent's output must be verified independently before later work depends on it."
 ---
 
 # Gated multi-agent review lifecycle
@@ -388,3 +388,5 @@ lower tier happens to be available.
   example: gate definitions, a PASS WITH CONDITIONS verdict, a FAIL verdict that triggers failure routing,
   a two-strikes escalation, an adjudication, and two correction-log entries — showing the whole lifecycle
   running end to end on invented data.
+- `references/review-loop-to-acceptance.md` — the stage skeleton, independence rule, severity and
+  disposition taxonomy, acceptance proxy and independent closure for a review loop that ends in acceptance.

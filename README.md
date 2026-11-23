@@ -34,19 +34,33 @@ It is a **template methodology**, not a fixed checklist — you define however m
 actually needs (three is plenty for a small pipeline; a large multi-phase program might define a dozen)
 and fill in the provided templates with your own artifacts, roles, and criteria.
 
+## Works with
+
+| Surface | How | Status |
+|---|---|---|
+| Claude Code | native skill (`~/.claude/skills/` or `.claude/skills/`) | not tested |
+| Codex | native skill via `.agents/skills` | not tested |
+| Gemini CLI | native skill via `.agents/skills`, pointer in `GEMINI.md` | not tested |
+| Cursor | native skill via `.agents/skills`, reads `AGENTS.md` | not tested |
+| Copilot | pointer block in `.github/copilot-instructions.md` | not tested |
+| ChatGPT / Claude.ai / Gemini (chat) | paste `PROMPT.md` | not tested |
+
 ## Installation
 
-This is a portable **Agent Skill** — a `SKILL.md` file with YAML frontmatter plus supporting reference
-material, following the emerging `SKILL.md` convention used by several agent runtimes.
+This is an Agent Skill: a `SKILL.md` file with YAML frontmatter plus reference templates. No
+dependencies, no scripts beyond `install.sh`, no network access.
 
-- **Claude Code:** copy this whole folder into `.claude/skills/gated-multi-agent-review-lifecycle/` in
-  your project (or the user-level skills directory, if your runtime supports one), so its name matches
-  the folder name.
-- **Any other agent runtime that supports the `SKILL.md` convention:** copy the folder into that
-  runtime's equivalent skills directory. The skill is self-contained — `SKILL.md` carries the complete
-  methodology, and `references/` holds the copy-paste templates it points to.
+```sh
+git clone https://github.com/hyderhusainarastu/gated-multi-agent-review-lifecycle
+cd gated-multi-agent-review-lifecycle
+./install.sh --claude                 # ~/.claude/skills/gated-multi-agent-review-lifecycle
+./install.sh --agents --project .     # .agents/skills (Codex, Cursor, Gemini CLI)
+./install.sh --copilot --project .    # pointer block in .github/copilot-instructions.md
+./install.sh --dry-run --claude       # preview; add --uninstall to remove
+```
 
-No dependencies, no scripts, no network access required.
+For a chat UI with no skill support, paste `PROMPT.md` into the conversation. Instructions for
+agents live in `AGENTS.md`; `CLAUDE.md`, `GEMINI.md` and `.github/copilot-instructions.md` point to it.
 
 ## Worked usage example (synthetic data)
 
@@ -75,8 +89,12 @@ fill in your own artifacts and roles, and have every reviewer emit verdicts in t
 ```
 SKILL.md                                    the complete, self-contained methodology
 README.md                                   this file
+AGENTS.md                                   agent instructions (CLAUDE.md, GEMINI.md and Copilot point here)
+PROMPT.md                                   paste-in version for chat UIs
+install.sh                                  installer for the skill targets above
 LICENSE                                     MIT
 references/
+  review-loop-to-acceptance.md              stage skeleton, independence rule, severity taxonomy, closure
   gate-definition-template.md               blank gate template + a definition checklist
   verdict-schema.md                         the verdict schema, field by field, with anti-patterns
   evidence-ledger-template.md               blank evidence-ledger template
@@ -85,9 +103,20 @@ examples/
   example-workflow-gates.md                 full synthetic worked example (see above)
 ```
 
-There is no bundled script — this skill is pure methodology and templates, meant to be followed directly
+There is no bundled script besides the installer; this skill is pure methodology and templates, meant to be followed directly
 by whatever agent or orchestrator is running your workflow.
 
 ## License
 
 MIT. See `LICENSE`.
+
+## Related
+
+- [multi-agent-orchestration-playbook](https://github.com/hyderhusainarastu/multi-agent-orchestration-playbook): the umbrella guide for orchestrating multi-agent work.
+- [evidence-ledger-and-phase-handoff-convention](https://github.com/hyderhusainarastu/evidence-ledger-and-phase-handoff-convention)
+- [adversarial-peer-review-role](https://github.com/hyderhusainarastu/adversarial-peer-review-role)
+- [agent-brief-schema-for-specialist-roles](https://github.com/hyderhusainarastu/agent-brief-schema-for-specialist-roles)
+
+Keywords: quality gates, multi-agent review, verification, no self-approval, evidence ledger, agent skill.
+
+Part of palimnote-skills - more at https://github.com/hyderhusainarastu
